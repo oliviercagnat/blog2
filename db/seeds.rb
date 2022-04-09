@@ -5,3 +5,18 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+
+require "open-uri"
+
+puts "Cleaning up database..."
+Article.destroy_all
+puts "Database cleaned"
+
+file = URI.open('https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/NES-Console-Set.jpg/1200px-NES-Console-Set.jpg')
+article = Article.create(title: 'NES', body: "A great console")
+article.photo.attach(io: file, filename: 'nes.png', content_type: 'image/png')
+
+
+puts "#{article.title} Article created"
+puts "Photo attached? #{article.photo.attached?}"
